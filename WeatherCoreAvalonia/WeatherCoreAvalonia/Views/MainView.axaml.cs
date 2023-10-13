@@ -3,7 +3,10 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
+using WeatherCore.Lib;
 using WeatherCoreAvalonia.ViewModels;
+using WebViewControl;
 
 namespace WeatherCoreAvalonia.Views;
 
@@ -40,5 +43,13 @@ public partial class MainView : UserControl
     {
         if(sender is not ListBox box)return;
         box.SelectedIndex = 0;
+    }
+
+    private void NavClick(object? sender, RoutedEventArgs e)
+    {
+        if(sender is not Control control)return;
+        if(control.DataContext is not WeatherList list)return;
+        var window = new WebCoreView(list.FxLink);
+        window.Show();
     }
 }

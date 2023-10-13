@@ -4,8 +4,11 @@
     <option name="projectPerEditor">
       <map>
         <entry key="WeatherCoreAvalonia/WeatherCoreAvalonia/App.axaml" value="WeatherCoreAvalonia/WeatherCoreAvalonia.Browser/WeatherCoreAvalonia.Browser.csproj" />
+        <entry key="WeatherCoreAvalonia/WeatherCoreAvalonia/Views/BlankWindow.axaml" value="WeatherCoreAvalonia/WeatherCoreAvalonia.Browser/WeatherCoreAvalonia.Browser.csproj" />
         <entry key="WeatherCoreAvalonia/WeatherCoreAvalonia/Views/MainView.axaml" value="WeatherCoreAvalonia/WeatherCoreAvalonia.Desktop/WeatherCoreAvalonia.Desktop.csproj" />
+        <entry key="WeatherCoreAvalonia/WeatherCoreAvalonia/Views/MainWindow.axaml" value="WeatherCoreAvalonia/WeatherCoreAvalonia.Browser/WeatherCoreAvalonia.Browser.csproj" />
         <entry key="WeatherCoreAvalonia/WeatherCoreAvalonia/Views/WeatherSearchList.axaml" value="WeatherCoreAvalonia/WeatherCoreAvalonia.Browser/WeatherCoreAvalonia.Browser.csproj" />
+        <entry key="WeatherCoreAvalonia/WeatherCoreAvalonia/Views/WebCoreView.axaml" value="WeatherCoreAvalonia/WeatherCoreAvalonia.Desktop/WeatherCoreAvalonia.Desktop.csproj" />
       </map>
     </option>
   </component>

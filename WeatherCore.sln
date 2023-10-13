@@ -8,9 +8,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCoreAvalonia.Desktop
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCoreAvalonia.iOS", "WeatherCoreAvalonia\WeatherCoreAvalonia.iOS\WeatherCoreAvalonia.iOS.csproj", "{BF288784-F3B3-4056-9870-05E66A74FE91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCoreAvalonia.Browser", "WeatherCoreAvalonia\WeatherCoreAvalonia.Browser\WeatherCoreAvalonia.Browser.csproj", "{9410F815-EEB2-494D-8698-1CDB9A9A03B1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCore.Lib", "WeatherCore.Lib\WeatherCore.Lib.csproj", "{80E78B56-3A82-4747-A5F9-EB4F45F1168B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCore.BS", "WeatherCore.BS\WeatherCore.BS.csproj", "{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,13 +38,13 @@ Global
 		{BF288784-F3B3-4056-9870-05E66A74FE91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF288784-F3B3-4056-9870-05E66A74FE91}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF288784-F3B3-4056-9870-05E66A74FE91}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{9410F815-EEB2-494D-8698-1CDB9A9A03B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9410F815-EEB2-494D-8698-1CDB9A9A03B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9410F815-EEB2-494D-8698-1CDB9A9A03B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9410F815-EEB2-494D-8698-1CDB9A9A03B1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{80E78B56-3A82-4747-A5F9-EB4F45F1168B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{80E78B56-3A82-4747-A5F9-EB4F45F1168B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80E78B56-3A82-4747-A5F9-EB4F45F1168B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80E78B56-3A82-4747-A5F9-EB4F45F1168B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

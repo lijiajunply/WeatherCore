@@ -20,7 +20,7 @@
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
         <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
         <PackageReference Include="Semi.Avalonia" Version="11.0.1" />
-        <PackageReference Include="WebViewControl-Avalonia" Version="2.117.1" />
+        <PackageReference Include="WebViewControl-Avalonia" Version="2.117.1-avalonia11" />
     </ItemGroup>
 
     <ItemGroup>
