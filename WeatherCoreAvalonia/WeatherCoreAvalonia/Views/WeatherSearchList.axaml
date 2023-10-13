@@ -1,0 +1,28 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lib="clr-namespace:WeatherCore.Lib;assembly=WeatherCore.Lib"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WeatherCoreAvalonia.Views.WeatherSearchList">
+    <ListBox Name="ItemsControl" SelectionChanged="SearchItemChange">
+        <ListBox.ItemTemplate>
+            <DataTemplate DataType="lib:LocationModel">
+                <Grid ColumnDefinitions="*,*" Width="180">
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{Binding name}" />
+                        <TextBlock Text="{Binding id}"
+                                   FontStyle="Italic" />
+                    </StackPanel>
+                    <Button Grid.Column="1" HorizontalAlignment="Right"
+                            Click="SearchItemAddClick">
+                        <avalonia:MaterialIcon Kind="Add" />
+                        <!-- <controls:SymbolIcon Symbol="Add" FontSize="18" /> -->
+                    </Button>
+                </Grid>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</UserControl>

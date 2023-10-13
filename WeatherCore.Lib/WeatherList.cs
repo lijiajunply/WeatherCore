@@ -17,7 +17,7 @@ public class WeatherList
 
 public static class Weather
 {
-    private const string ApiKey = "def33e7b79464f0e8e22aae135ec13c6";
+    private const string ApiKey = "9fece858bb9d4831b9fcce12707118bb";
     private const string ApiBaseUrl = "https://devapi.qweather.com/v7/weather/";
     private const string LocApi = "https://geoapi.qweather.com/v2/city/lookup";
     private const string SuggestionApi = "https://devapi.qweather.com/v7/indices/1d?";

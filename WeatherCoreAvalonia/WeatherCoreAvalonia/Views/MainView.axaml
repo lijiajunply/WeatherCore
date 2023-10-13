@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:WeatherCoreAvalonia.ViewModels"
+             xmlns:lib="clr-namespace:WeatherCore.Lib;assembly=WeatherCore.Lib"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="WeatherCoreAvalonia.Views.MainView"
              x:DataType="vm:MainViewModel">
@@ -10,5 +12,214 @@
         <vm:MainViewModel />
     </Design.DataContext>
 
-    
+    <ScrollViewer>
+        <StackPanel Margin="10">
+            <Grid ColumnDefinitions="*,Auto,*">
+                <Button Grid.Column="0" Command="{Binding Left}" HorizontalAlignment="Left">
+                    <avalonia:MaterialIcon Kind="ArrowLeft" />
+                </Button>
+                <WrapPanel Grid.Column="1">
+                    <ComboBox ItemsSource="{Binding Locations}" SelectedItem="{Binding Location}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBox Name="SearchBox"
+                             Width="300"
+                             Watermark="搜索"
+                             KeyDown="SearchDown" />
+
+                </WrapPanel>
+                <Button Grid.Column="2" HorizontalAlignment="Right" Command="{Binding Right}">
+                    <avalonia:MaterialIcon Kind="ArrowRight" />
+                </Button>
+            </Grid>
+            <StackPanel DataContext="{Binding Data}">
+                <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding CityName}" />
+                <TextBlock
+                    Text="{Binding UpdateTime,Converter={StaticResource SimpleTimeConverter},StringFormat='更新时间:{0}'}" />
+                <!-- <controls:HyperlinkButton NavigateUri="{Binding FxLink}" Content="网址" /> -->
+                <Border Theme="{StaticResource CardBorder}">
+                    <StackPanel DataContext="{Binding Now}">
+                        <Grid ColumnDefinitions="*,*" HorizontalAlignment="Center">
+                            <Svg Grid.Column="0" Height="30" Width="30"
+                                 Path="{Binding icon,Converter={StaticResource WeatherSvgConverter}}" />
+                            <StackPanel Grid.Column="1">
+                                <TextBlock FontSize="18" FontWeight="Bold"
+                                           Text="{Binding temp,StringFormat={}{0}℃}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding text}" />
+                            </StackPanel>
+
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*,*,*,*,*">
+                            <Grid.Styles>
+                                <Style Selector="StackPanel">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </Grid.Styles>
+                            <!--  -->
+                            <StackPanel Grid.Column="0">
+                                <TextBlock FontSize="18" FontWeight="Bold"
+                                           Text="{Binding windScale,StringFormat={}{0}级}" />
+                                <TextBlock Text="{Binding windDir}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock FontSize="18" FontWeight="Bold"
+                                           Text="{Binding feelsLike,StringFormat={}{0}℃}" />
+                                <TextBlock Text="体感温度" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock FontSize="18" FontWeight="Bold"
+                                           Text="{Binding pressure,StringFormat={}{0}hPa}" />
+                                <TextBlock Text="大气压" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3">
+                                <TextBlock FontSize="18" FontWeight="Bold"
+                                           Text="{Binding humidity}" />
+                                <TextBlock Text="空气质量" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="4">
+                                <TextBlock FontSize="18" FontWeight="Bold"
+                                           Text="{Binding  vis,StringFormat={}{0}km}" />
+                                <TextBlock Text="能见度" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="5">
+                                <TextBlock FontSize="18" FontWeight="Bold"
+                                           Text="{Binding precip,StringFormat={}{0}mm}" />
+                                <TextBlock Text="降水量" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Theme="{StaticResource CardBorder}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl Margin="5,5,5,10" ItemsSource="{Binding Hours}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="5">
+                                        <TextBlock
+                                            Text="{Binding fxTime,Converter={StaticResource SimpleTimeConverter}}" />
+                                        <Svg Height="30" Width="30"
+                                             Path="{Binding icon,Converter={StaticResource WeatherSvgConverter}}" />
+                                        <TextBlock FontWeight="Bold" Text="{Binding temp,StringFormat={}{0}℃}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+
+                <Border Theme="{StaticResource CardBorder}">
+                    <ItemsControl ItemsSource="{Binding Days}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="*,*,*" Margin="5">
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding fxDate,Converter={StaticResource SimpleDayConverter}}" />
+                                    <Svg Grid.Column="1" Height="30" Width="30"
+                                         Path="{Binding iconDay,Converter={StaticResource WeatherSvgConverter}}" />
+                                    <WrapPanel Grid.Column="2" HorizontalAlignment="Right">
+                                        <TextBlock Text="{Binding tempMin,StringFormat={}{0}°}" />
+                                        <TextBlock Text="/" />
+                                        <TextBlock Text="{Binding tempMax,StringFormat={}{0}°}" />
+                                    </WrapPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+
+                <StackPanel DataContext="{Binding Today}">
+                    <Border Theme="{StaticResource CardBorder}">
+                        <Grid RowDefinitions="*,*">
+                            <Grid Grid.Row="0">
+                                <TextBlock FontWeight="Bold" Margin="4" FontSize="20"
+                                           Text="{Binding sunrise}" HorizontalAlignment="Left" />
+                                <WrapPanel HorizontalAlignment="Center">
+                                    <Svg Height="30" Width="30"
+                                         Path="{Binding iconDay,Converter={StaticResource WeatherSvgConverter}}" />
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding textDay}" />
+                                </WrapPanel>
+                                <TextBlock FontWeight="Bold" Margin="4" FontSize="20"
+                                           Text="{Binding sunset}" HorizontalAlignment="Right" />
+                            </Grid>
+
+                            <ProgressBar Grid.Row="1" Margin="2,10,2,2" Maximum="1"
+                                         Value="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                        </Grid>
+                    </Border>
+
+                    <Border Theme="{StaticResource CardBorder}">
+                        <Grid RowDefinitions="*,*">
+                            <Grid Grid.Row="0">
+                                <TextBlock FontWeight="Bold" Margin="4" FontSize="20"
+                                           Text="{Binding moonrise}" HorizontalAlignment="Left" />
+                                <WrapPanel HorizontalAlignment="Center">
+                                    <Svg Height="30" Width="30"
+                                         Path="{Binding iconNight,Converter={StaticResource WeatherSvgConverter}}" />
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding textNight}" />
+                                </WrapPanel>
+                                <TextBlock FontWeight="Bold" Margin="4" FontSize="20"
+                                           Text="{Binding moonSet}" HorizontalAlignment="Right" />
+                            </Grid>
+
+                            <ProgressBar Grid.Row="1" Margin="2,10,2,2" Maximum="1"
+                                         Value="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                        </Grid>
+                    </Border>
+
+                    <ListBox ItemsSource="{Binding Suggestions}" Initialized="SuggestionListInitialized"
+                             SelectionChanged="WeatherSuggestionChanged">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Theme="{StaticResource CardBorder}"
+                                        Width="120" Height="60">
+                                    <StackPanel>
+                                        <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding name}" />
+                                        <TextBlock Text="{Binding level,StringFormat={}{0}级}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <ContentControl Name="SuggestionControl">
+                        <ContentControl.ContentTemplate>
+                            <DataTemplate DataType="lib:WeatherSuggestion">
+                                <Border Theme="{StaticResource CardBorder}">
+                                    <StackPanel>
+                                        <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding category}" />
+                                        <TextBlock Text="{Binding text}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ContentControl.ContentTemplate>
+                    </ContentControl>
+                </StackPanel>
+
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+
 </UserControl>
