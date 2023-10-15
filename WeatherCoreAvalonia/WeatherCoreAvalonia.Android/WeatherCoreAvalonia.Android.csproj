@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.NETCore.App.Runtime.Mono.win-arm64"/>
         <PackageReference Include="Avalonia.Android" Version="$(AvaloniaVersion)"/>
         <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.1"/>
     </ItemGroup>

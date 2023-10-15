@@ -42,7 +42,7 @@
                 <TextBlock
                     Text="{Binding UpdateTime,Converter={StaticResource SimpleTimeConverter},StringFormat='更新时间:{0}'}" />
                 <!-- <controls:HyperlinkButton NavigateUri="{Binding FxLink}" Content="网址" /> -->
-                <Button Click="NavClick" Content="网址"/>
+                <Button Click="NavClick" Content="网址" />
                 <Border Theme="{StaticResource CardBorder}">
                     <StackPanel DataContext="{Binding Now}">
                         <Grid ColumnDefinitions="*,*" HorizontalAlignment="Center">

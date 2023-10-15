@@ -1,0 +1,266 @@
+﻿@page "/{Text?}"
+@using WeatherCore.Lib
+@using System.Text.RegularExpressions
+@inject NotificationService _notice
+
+<PageTitle>@List.CityName</PageTitle>
+
+
+<GridRow>
+    <GridCol Span="4"></GridCol>
+    <GridCol Span="16">
+        @if (!string.IsNullOrEmpty(List.CityName))
+        {
+            <header class="header">
+                <h1>@List.CityName</h1>
+            </header>
+
+            <div class="Card">
+                <div class="centre">
+                    <img height="50" width="50" src="WeatherIcon/@($"{List.Now.icon}.svg")" alt="@List.Now.text"/>
+                    <p>@List.Now.text </p>
+                    <p>@List.Now.temp ℃</p>
+                </div>
+
+                <Row Gutter="24">
+                    <GridCol Span="4" Class="centre">
+                        <h3>@List.Now.windScale 级</h3>
+                        <p>@List.Now.windDir</p>
+                    </GridCol>
+                    <GridCol Span="4" Class="centre">
+                        <h3>@List.Now.feelsLike ℃</h3>
+                        <p>体感温度</p>
+                    </GridCol>
+                    <GridCol Span="4" Class="centre">
+                        <h3>@List.Now.pressure hPa</h3>
+                        <p>大气压</p>
+                    </GridCol>
+                    <GridCol Span="4" Class="centre">
+                        <h3>@List.Now.humidity 级</h3>
+                        <p>空气质量</p>
+                    </GridCol>
+                    <GridCol Span="4" Class="centre">
+                        <h3>@List.Now.vis km</h3>
+                        <p>能见度</p>
+                    </GridCol>
+                    <GridCol Span="4" Class="centre">
+                        <h3>@List.Now.precip mm</h3>
+                        <p>降水量</p>
+                    </GridCol>
+                </Row>
+            </div>
+
+            <div class="Card">
+                <div class="scroll">
+                    @foreach (var item in List.Hours)
+                    {
+                        <div class="item">
+                            <p>@SimpleTimeConverter(item.fxTime!)</p>
+                            <img src="WeatherIcon/@($"{item.icon}.svg")" alt="@item.text"/>
+                            <p>@item.text @item.temp ℃</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+            <div class="Card">
+                @foreach (var item in List.Days)
+                {
+                    <Row Gutter="24">
+                        <GridCol Span="8" Class="centre">
+                            @SimpleDayConverter(item.fxDate)
+                        </GridCol>
+                        <GridCol Span="8" Class="centre">
+                            <img height="30" width="30" src="WeatherIcon/@($"{item.iconDay}.svg")" alt=""/>
+                        </GridCol>
+                        <GridCol Span="8" Class="centre">
+                            @item.tempMin / @item.tempMax
+                        </GridCol>
+                    </Row>
+                }
+            </div>
+
+            <div class="Card">
+                <GridRow>
+                    <GridCol Span="8" Class="centre">
+                        @List.Today.sunrise
+                    </GridCol>
+                    <GridCol Span="8" Class="centre">
+                        <img height="30" width="30" src="WeatherIcon/@($"{List.Today.iconDay}.svg")" alt=""/>
+                    </GridCol>
+                    <GridCol Span="8" Class="centre">
+                        @List.Today.sunset
+                    </GridCol>
+                </GridRow>
+                <Progress ShowInfo="false" Format="Format" Percent="@DateProgress(List.Today.sunrise, List.Today.sunset)"></Progress>
+
+            </div>
+
+            <div class="Card">
+                <GridRow>
+                    <GridCol Span="8" Class="centre">
+                        @List.Today.moonrise
+                    </GridCol>
+                    <GridCol Span="8" Class="centre">
+                        <img height="30" width="30" src="WeatherIcon/@($"{List.Today.moonPhaseIcon}.svg")" alt=""/>
+                    </GridCol>
+                    <GridCol Span="8" Class="centre">
+                        @List.Today.moonSet
+                    </GridCol>
+                </GridRow>
+                <Progress ShowInfo="false" Format="Format" Percent="@DateProgress(List.Today.moonrise, List.Today.moonSet)"></Progress>
+
+            </div>
+
+            <div class="Card">
+                <Row Gutter="(24,8)">
+                    @foreach (var item in List.Today.Suggestions)
+                    {
+                        <GridCol Span="6">
+                            <Button Type="@ButtonType.Primary" OnClick="() => SuggestionClick(item)">
+                                <div>
+                                    <h3>@item.name</h3>
+                                </div>
+                            </Button>
+                        </GridCol>
+                    }
+                </Row>
+            </div>
+
+            <div class="Card">
+                <h2>@Suggestion.category</h2>
+                <p>@Suggestion.text</p>
+            </div>
+        }
+        else
+        {
+            <Spin size="large"/>
+        }
+    </GridCol>
+    <GridCol Span="4"></GridCol>
+</GridRow>
+
+
+@code
+{
+    public string Format(double d) => "";
+    private WeatherSuggestion Suggestion { get; set; } = new();
+
+    [Parameter]
+    public string? Text { get; set; }
+
+    private WeatherList List { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var loc = Weather.DefaultCity;
+        if (!string.IsNullOrEmpty(Text))
+        {
+            var locations = await Weather.GetLoc(Text);
+            var l = locations.FirstOrDefault();
+            if (l != null) loc = l;
+            else
+            {
+                await _notice.Open(new NotificationConfig()
+                {
+                    Message = "是这样的",
+                    Description = $"{Text}这个结果,搜是搜不到一点"
+                });
+            }
+        }
+        List = await Weather.GetData(loc);
+        await base.OnInitializedAsync();
+    }
+}
+
+@code
+{
+    public string SimpleDayConverter(string s)
+    {
+        if (string.IsNullOrEmpty(s)) return s;
+        var match = Regex.Match(s, "(.*?)-(.*)");
+        if (match.Groups.Count < 3) return s;
+        var result = match.Groups[2];
+        return result.Value;
+    }
+
+    string SimpleTimeConverter(string s)
+    {
+        if (string.IsNullOrEmpty(s)) return s;
+        var match = Regex.Match(s, "(.*)T(.*)\\+(.*)");
+        if (match.Groups.Count < 3) return s;
+        var result = match.Groups[2];
+        return result.Value;
+    }
+
+    private int DateProgress(string start, string end)
+    {
+        if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
+        {
+            return 100;
+        }
+        var now = DateTime.Now;
+        var startDate = DateTime.Parse(start);
+        var endDate = DateTime.Parse(end);
+        var total = endDate - startDate;
+        var nowProgress = now - startDate;
+        return (int)(nowProgress.TotalMinutes / total.TotalMinutes * 100);
+    }
+
+    private void SuggestionClick(WeatherSuggestion suggestion)
+    {
+        Suggestion = suggestion;
+    }
+}
+
+<style>
+    .Card{
+        margin: 10px;
+        background: #2d2e32;
+        color: azure;
+        border: 0 solid;
+        border-radius: 10px;
+        padding: 15px;
+    }
+    .centre{
+    text-align: center;
+    margin: auto;
+    }
+    body{
+        background: #202124;
+    }
+    h3{
+        color: azure;
+    }
+    h2{
+        color: azure;
+        font-weight: bold;
+    }
+    .header {
+        padding: 5px 10px 1px;
+        background: #2d2e32;
+        margin: 10px;
+        border-radius: 10px;
+        /* 添加圆角 */
+        overflow: hidden;
+        /* 防止子元素超出边界 */
+        display: flex;
+    }
+    h1{
+        color: azure;
+        font-weight: bold;
+    }
+    .scroll {
+            text-align: center;
+            white-space: nowrap;
+            overflow-x: clip;
+            overflow-y: hidden;
+          }
+    .item {
+        width: 100px;
+        height: 50px;
+        display: inline-block;
+      }
+
+</style>

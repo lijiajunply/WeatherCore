@@ -13,6 +13,11 @@ public class WeatherList
     public WeatherHour Now { get; set; } = new();
     public string CityName { get; set; } = "";
     public WeatherToday Today { get; set; } = new();
+
+    public override string ToString()
+    {
+        return $"{UpdateTime},{FxLink},{CityName},{Days},{Hours},{Now},{Today}";
+    }
 }
 
 public static class Weather
@@ -122,7 +127,7 @@ public static class Weather
         var array = new List<WeatherSuggestion>();
         var arrayJson = resultJson["daily"];
         array = arrayJson == null ? array : arrayJson.ToObject<List<WeatherSuggestion>>()!;
-        
+
         today.Suggestions = array;
         return today;
     }

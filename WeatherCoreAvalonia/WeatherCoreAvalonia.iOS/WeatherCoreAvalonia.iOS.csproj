@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.NETCore.App.Runtime.Mono.win-arm64"/>
         <ProjectReference Include="..\WeatherCoreAvalonia\WeatherCoreAvalonia.csproj"/>
     </ItemGroup>
 </Project>

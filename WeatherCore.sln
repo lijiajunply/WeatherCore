@@ -10,7 +10,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCoreAvalonia.iOS", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCore.Lib", "WeatherCore.Lib\WeatherCore.Lib.csproj", "{80E78B56-3A82-4747-A5F9-EB4F45F1168B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCore.BS", "WeatherCore.BS\WeatherCore.BS.csproj", "{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCore.BlazorServer", "WeatherCore.BlazorServer\WeatherCore.BlazorServer.csproj", "{1248E4C3-31D6-4D7A-BDB4-81BEE1B0DB52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{0ED4B97E-AB72-4DB9-9D48-4AEFBBD1B405}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,9 +44,13 @@ Global
 		{80E78B56-3A82-4747-A5F9-EB4F45F1168B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80E78B56-3A82-4747-A5F9-EB4F45F1168B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80E78B56-3A82-4747-A5F9-EB4F45F1168B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9A0BBE6-AFE8-41CE-8C66-767304974E8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1248E4C3-31D6-4D7A-BDB4-81BEE1B0DB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1248E4C3-31D6-4D7A-BDB4-81BEE1B0DB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1248E4C3-31D6-4D7A-BDB4-81BEE1B0DB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1248E4C3-31D6-4D7A-BDB4-81BEE1B0DB52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ED4B97E-AB72-4DB9-9D48-4AEFBBD1B405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED4B97E-AB72-4DB9-9D48-4AEFBBD1B405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED4B97E-AB72-4DB9-9D48-4AEFBBD1B405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED4B97E-AB72-4DB9-9D48-4AEFBBD1B405}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
